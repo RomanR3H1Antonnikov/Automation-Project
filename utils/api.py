@@ -1,5 +1,3 @@
-from shutil import posix
-
 from utils.http_methods import HTTP_methods
 
 base_url = "https://rahulshettyacademy.com"
@@ -30,3 +28,14 @@ class Google_maps_api():
         result_post = HTTP_methods.post(post_url, json_for_create_new_place)
         print(result_post.text)
         return result_post
+
+
+    @staticmethod
+    def get_new_place(place_id):
+
+        get_resource = "/maps/api/place/get/json"
+        get_url = base_url + get_resource + key + "&place_id" + place_id
+        print(get_url)
+        result_get = HTTP_methods.get(get_url)
+        print(result_get.text)
+        return result_get
