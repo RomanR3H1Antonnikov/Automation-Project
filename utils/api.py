@@ -1,3 +1,5 @@
+from pydoc import resolve
+
 from utils.http_methods import HTTPMethods
 
 
@@ -55,3 +57,16 @@ class GoogleMapsApi:
         result_put = HTTPMethods.put(put_url, json_for_update_new_location)
         print(result_put.text)
         return result_put
+
+
+    @classmethod
+    def delete_new_place(cls, place_id):
+        delete_resource = "/maps/api/place/delete/json"
+        delete_url = cls.base_url + delete_resource + cls.key
+        print(delete_url)
+        json_for_delete_new_location = {
+            "place_id": place_id
+        }
+        result_delete = HTTPMethods.delete(delete_url, json_for_delete_new_location)
+        print(result_delete.text)
+        return result_delete
