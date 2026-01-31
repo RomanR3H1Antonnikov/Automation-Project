@@ -1,12 +1,13 @@
-from utils.http_methods import HTTP_methods
+from utils.http_methods import HTTPMethods
 
-base_url = "https://rahulshettyacademy.com"
-key = "?key=qaclick123"
 
-class Google_maps_api():
+class GoogleMapsApi:
 
-    @staticmethod
-    def create_new_place():
+    base_url = "https://rahulshettyacademy.com"
+    key = "?key=qaclick123"
+
+    @classmethod
+    def create_new_place(cls):
 
         json_for_create_new_place = {
             "location": {
@@ -23,19 +24,19 @@ class Google_maps_api():
         }
 
         post_resource = "/maps/api/place/add/json"
-        post_url = base_url + post_resource + key
+        post_url = cls.base_url + post_resource + cls.key
         print(post_url)
-        result_post = HTTP_methods.post(post_url, json_for_create_new_place)
+        result_post = HTTPMethods.post(post_url, json_for_create_new_place)
         print(result_post.text)
         return result_post
 
 
-    @staticmethod
-    def get_new_place(place_id):
+    @classmethod
+    def get_new_place(cls, place_id):
 
         get_resource = "/maps/api/place/get/json"
-        get_url = base_url + get_resource + key + "&place_id" + place_id
+        get_url = cls.base_url + get_resource + cls.key + "&place_id=" + place_id
         print(get_url)
-        result_get = HTTP_methods.get(get_url)
+        result_get = HTTPMethods.get(get_url)
         print(result_get.text)
         return result_get
