@@ -50,6 +50,7 @@ class TestCreatePlace:
         except json.JSONDecodeError:
             pytest.fail("Ответ не является валидным JSON")
         Checking.check_status_code(result_get, 200)
+        Checking.check_json_token(result_get, ['location', 'accuracy', 'name', 'phone_number', 'address', 'types', 'website', 'language'])
 
     def test_put_new_place(self, place_id_initialize):
         place_id = place_id_initialize
@@ -72,7 +73,9 @@ class TestCreatePlace:
         except json.JSONDecodeError:
             pytest.fail("Ответ не является валидным JSON")
         Checking.check_status_code(result_put, 200)
+        Checking.check_json_token(result_put, ['msg'])
         Checking.check_status_code(result_get, 200)
+        Checking.check_json_token(result_get, ['location', 'accuracy', 'name', 'phone_number', 'address', 'types', 'website', 'language'])
 
     def test_delete_place(self, place_id_initialize):
         place_id = place_id_initialize
@@ -81,6 +84,7 @@ class TestCreatePlace:
         result_delete: Response = GoogleMapsApi.delete_new_place(place_id)
         assert result_delete.status_code == 200, f"Неверный статус код: {result_delete.status_code}"
         Checking.check_status_code(result_delete, 200)
+        Checking.check_json_token(result_delete, ['status'])
 
         try:
             delete_data = result_delete.json()
@@ -91,3 +95,6 @@ class TestCreatePlace:
         result_get: Response = GoogleMapsApi.get_new_place(place_id)
         assert result_get.status_code == 404, f"Ожидался статус 404, получен: {result_get.status_code}"
         Checking.check_status_code(result_get, 404)
+        Checking.check_json_token(result_get, ['msg'])
+
+        print("Тестирование создания, изменения и удаления новой локации прошло успешно")
