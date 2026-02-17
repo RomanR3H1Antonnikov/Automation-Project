@@ -43,7 +43,6 @@ class TestCreatePlace:
 
         print('Метод GET POST')
         result_get: Response = GoogleMapsApi.get_new_place(place_id)
-        assert result_get.status_code == 200, f"Неверный статус код: {result_get.status_code}"
 
         try:
             get_data = result_get.json()
@@ -58,7 +57,6 @@ class TestCreatePlace:
 
         print('Метод PUT')
         result_put: Response = GoogleMapsApi.put_new_place(place_id)
-        assert result_put.status_code == 200, f"Неверный статус код: {result_put.status_code}"
 
         try:
             put_data = result_put.json()
@@ -67,7 +65,6 @@ class TestCreatePlace:
 
         print('Метод GET PUT')
         result_get: Response = GoogleMapsApi.get_new_place(place_id)
-        assert result_get.status_code == 200, f"Неверный статус код: {result_get.status_code}"
 
         try:
             get_data = result_get.json()
@@ -85,7 +82,6 @@ class TestCreatePlace:
 
         print('Метод DELETE')
         result_delete: Response = GoogleMapsApi.delete_new_place(place_id)
-        assert result_delete.status_code == 200, f"Неверный статус код: {result_delete.status_code}"
         Checking.check_status_code(result_delete, 200)
         Checking.check_json_token(result_delete, ['status'])
         Checking.check_json_value(result_delete, 'status', 'OK')
