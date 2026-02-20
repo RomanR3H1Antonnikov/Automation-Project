@@ -1,5 +1,3 @@
-from pydoc import resolve
-
 from utils.http_methods import HTTPMethods
 
 
